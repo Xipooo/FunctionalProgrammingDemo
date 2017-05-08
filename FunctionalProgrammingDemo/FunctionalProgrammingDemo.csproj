@@ -48,7 +48,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Delegates\DelegateTypes.cs" />
     <Compile Include="ImmutableData\ImmutableClasses.cs" />
+    <Compile Include="ImmutableData\Tuples.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
