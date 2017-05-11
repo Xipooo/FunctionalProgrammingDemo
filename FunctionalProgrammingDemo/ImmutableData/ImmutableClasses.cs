@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FunctionalProgrammingDemo.ImmutableData
 {
@@ -30,7 +32,19 @@ namespace FunctionalProgrammingDemo.ImmutableData
 
             Assert.AreEqual("Name 200", mutClass1.Name);
         }
+
+        [TestMethod]
+        public void NotThreadSafe()
+        {
+            var mutableClass = new MutableClass();
+
+            Parallel.For(1, 999999,
+                i => mutableClass.ChangeName(i % 2 == 0 ? "Foo" : "Bar"));
+
+            Assert.AreEqual("Bar", mutableClass.Name);
+        }
     }
+
 
     public class ImmutableClass
     {
@@ -70,6 +84,7 @@ namespace FunctionalProgrammingDemo.ImmutableData
             Assert.AreEqual("Name 100", immutClass1.Name);
             Assert.AreEqual("Name 200", immutClass3.Name);
         }
+
     }
 
     public class AutoImmutableClass
@@ -78,5 +93,19 @@ namespace FunctionalProgrammingDemo.ImmutableData
         public string Name { get; }
 
         public ImmutableClass ChangeName(string newName) => new ImmutableClass(this.Id, newName);
+    }
+
+    [TestClass]
+    public class ImmutableLists
+    {
+
+        [TestMethod]
+        public void ThreadSafeLists()
+        {
+            var immutableClassList = new ThreadSafeList<MutableClass>();
+            Parallel.For(1, 9999,
+                i => immutableClassList = immutableClassList.Add(new MutableClass { Id = i, Name = "Name " + i.ToString() }));
+
+        }
     }
 }
