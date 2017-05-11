@@ -1,9 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FunctionalProgrammingDemo.ImmutableData
 {
-
     public class MutableClass
     {
         public int Id { get; set; }
@@ -33,7 +31,6 @@ namespace FunctionalProgrammingDemo.ImmutableData
             Assert.AreEqual("Name 200", mutClass1.Name);
         }
     }
-
 
     public class ImmutableClass
     {
@@ -74,7 +71,6 @@ namespace FunctionalProgrammingDemo.ImmutableData
             Assert.AreEqual("Name 200", immutClass3.Name);
         }
     }
-
 
     public class AutoImmutableClass
     {
